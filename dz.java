@@ -25,21 +25,21 @@ public class dz {
         }
 		System.out.println("\n3. Калькулятор! \nДоступные арифметические действия: сложение (+), вычитание (-), умножение (*), деление (/) \nВведите первый аргумент: ");
 		String arga = work.nextLine();
-		int numa = 0, numb = 0;
-		if (arga.chars().allMatch(Character::isDigit)) { numa = Integer.parseInt(arga); }
+		double numa = 0, numb = 0;
+		if (arga.chars().allMatch(Character::isDigit)) { numa = Double.parseDouble(arga); }
 		else System.out.println("Заданный аргумент не является числом!");
 		System.out.println("Укажите желаемое действие: ");
 		String opera = work.nextLine();
 		System.out.println("Введите второй аргумент: ");
 		String argb = work.nextLine();
-		if (arga.chars().allMatch(Character::isDigit)) { numb = Integer.parseInt(argb); }
+		if (arga.chars().allMatch(Character::isDigit)) { numb = Double.parseDouble(argb); }
 		else System.out.println("Заданный аргумент не является числом!");
 
-		if (opera.equals("+")) { int res = numa + numb; System.out.println("Ответ: " + res); }
-		else if (opera.equals("-")) { int res = numa - numb; System.out.println("Ответ: " + res); }
-		else if (opera.equals("*")) { int res = numa * numb; System.out.println("Ответ: " + res); }
-		else if (opera.equals("/")) { int res = numa / numb; System.out.println("Ответ: " + res); }
-		else System.out.println("ошибка");
+		if (opera.equals("+")) { double res = numa + numb; System.out.println("Ответ: " + res); }
+		else if (opera.equals("-")) { double res = numa - numb; System.out.println("Ответ: " + res); }
+		else if (opera.equals("*")) { double res = numa * numb; System.out.println("Ответ: " + res); }
+		else if (opera.equals("/") && numb != 0) { double res = numa / numb; System.out.println("Ответ: " + res); }
+		else System.out.println("Ошибка!");
 
         System.out.println("4. Введите ваш запрос через пробел, по формуле (a + b = c; a, b, c >= 0)");
         String quest = work.nextLine();
@@ -48,6 +48,8 @@ public class dz {
         int co = 0;
         int arqsi = arq.length;
         int goal = Integer.parseInt(arq[arqsi-1]);
+        String arg01 = "";
+        String arg02 = "";
         int arg1part = 0;
         int arg2part = 0;
         int a1temp = 0;
@@ -57,14 +59,15 @@ public class dz {
         for (int i = 0; i < 100; i++) {
             int randnum = ThreadLocalRandom.current().nextInt(0, 10);
             arg1part = randnum;
-            String arg01part = String.valueOf(arg1part);
-            String arg01 = arg1.replace("?", arg01part);
-            int arg111 = Integer.parseInt(arg01);
             arg2part = randnum;
+            String arg01part = String.valueOf(arg1part);
             String arg02part = String.valueOf(arg2part);
-            String arg02 = arg2.replace("?", arg02part);
+            arg01 = arg1.replace("?", arg01part);
+            int arg111 = Integer.parseInt(arg01);
+            arg02 = arg2.replace("?", arg02part);
             int arg222 = Integer.parseInt(arg02);
             int argsum = arg111 + arg222;
+            System.out.println(arg111 + " + " + arg222 + " = " + argsum);
             if (arg111 != a1temp && arg222 != a2temp && argsum == goal) 
                 {
                     System.out.println(arg111 + " + " + arg222 + " = " + argsum);
@@ -72,7 +75,7 @@ public class dz {
                     a2temp = arg222;
                 }
             else co -= 1;
-            if (co == -99) System.out.println("По вашему запросу не было найдено правильного ответа.");
+            if (co == -100) System.out.println("По вашему запросу не было найдено правильного ответа.");
         }
 
 		work.close();
